@@ -5,17 +5,17 @@ Version:	2.1
 Release:	1
 License:	GPL
 Group:		Applications/Networking
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz 
+Source0:	http://dl.sourceforge.net/p3scan/%{name}-%{version}.tar.gz 
 # Source0-md5:	5e261548e522f3ac2583870b6e02aecd
 Source1:	%{name}.init
 Patch0:		%{name}-config.patch
 URL:		http://p3scan.sf.net/
-PreReq:		rc-scripts
 BuildRequires:	pcre-devel
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 Requires:	pcre
 # FIXMI: which package in PLD provides 'netfilter' ? 
 #Requires:	netfilter
-Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define	_sysconfdir	/etc/%{name}
@@ -47,8 +47,8 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 install %{name}.conf $RPM_BUILD_ROOT%{_sysconfdir}
 install %{name}-*.mail $RPM_BUILD_ROOT%{_sysconfdir}
 install %{name} $RPM_BUILD_ROOT%{_sbindir}
-install %{name}.8.gz $RPM_BUILD_ROOT%{_mandir}/man8
-install %{name}_readme.8.gz $RPM_BUILD_ROOT%{_mandir}/man8
+gzip -dc %{name}.8.gz > $RPM_BUILD_ROOT%{_mandir}/man8/%{name}.8
+gzip -dc %{name}_readme.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/%{name}_readme.8
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -83,8 +83,8 @@ chown -R root /var/run/%{name}
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
 %attr(755,root,root) %{_sbindir}/*
 %dir %{_sysconfdir}
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/%{name}.conf
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/%{name}-*.mail
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}-*.mail
 %attr(770,root,mail) %dir /var/spool/%{name}
 %attr(770,root,mail) %dir /var/spool/%{name}/notify
 %attr(770,root,mail) %dir /var/spool/%{name}/children
