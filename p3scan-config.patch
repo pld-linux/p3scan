@@ -1,0 +1,12 @@
+diff -Nur old/p3scan.conf new/p3scan.conf
+--- old/p3scan.conf	2005-01-05 17:53:04.000000000 +0000
++++ new/p3scan.conf	2005-02-09 20:48:05.221294888 +0000
+@@ -81,6 +81,8 @@
+ #
+ #   default: mail
+ #
++#   For Clam Anti-Virus set user to clamav.
++#
+ # user = mail
+ 
+ #
