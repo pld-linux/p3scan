@@ -2,7 +2,7 @@ Summary:	p3scan - an application level gateway for the POP3 protocol
 Summary(pl):	p3scan - aplikacyjna bramka dla protoko³u POP3
 Name:		p3scan
 Version:	2.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Networking
 Source0:	http://dl.sourceforge.net/p3scan/%{name}-%{version}.tar.gz 
@@ -48,7 +48,7 @@ install %{name}.conf $RPM_BUILD_ROOT%{_sysconfdir}
 install %{name}-*.mail $RPM_BUILD_ROOT%{_sysconfdir}
 install %{name} $RPM_BUILD_ROOT%{_sbindir}
 gzip -dc %{name}.8.gz > $RPM_BUILD_ROOT%{_mandir}/man8/%{name}.8
-gzip -dc %{name}_readme.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/%{name}_readme.8
+gzip -dc %{name}_readme.8.gz > $RPM_BUILD_ROOT%{_mandir}/man8/%{name}_readme.8
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -74,8 +74,10 @@ chown -R clamav /var/spool/%{name}
 chown -R clamav /var/run/%{name}
 
 %triggerun -- clamav
-chown -R root /var/spool/%{name}
-chown -R root /var/run/%{name}
+if [ $2 = 0 ]; then
+	chown -R root /var/spool/%{name}
+	chown -R root /var/run/%{name}
+fi
 
 %files
 %defattr(644,root,root,755)
