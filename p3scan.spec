@@ -1,5 +1,5 @@
-Summary:	p3scan - an application level gateway for the POP3 protocol
-Summary(pl):	p3scan - aplikacyjna bramka dla protoko³u POP3
+Summary:	An application level gateway for the POP3 protocol
+Summary(pl):	Brama warstwy aplikacji dla protoko³u POP3
 Name:		p3scan
 Version:	2.1
 Release:	2
