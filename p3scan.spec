@@ -2,12 +2,13 @@ Summary:	p3scan - an application level gateway for the POP3 protocol
 Summary(pl):	p3scan - aplikacyjna bramka dla protoko³u POP3
 Name:		p3scan
 Version:	2.1
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		Applications/Networking
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz 
 # Source0-md5:	5e261548e522f3ac2583870b6e02aecd
-Source1:	p3scan.init
+Source1:	%{name}.init
+Patch0:		%{name}-config.patch
 URL:		http://p3scan.sf.net/
 PreReq:		rc-scripts
 BuildRequires:	pcre-devel
@@ -29,7 +30,7 @@ POP3.
 
 %prep
 %setup -q
-#%patch -p1
+%patch0 -p1
 
 %build
 rm -fr ripmime/ripmime.a
@@ -40,7 +41,7 @@ rm -fr ripmime/ripmime.a
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_sysconfdir},/etc/rc.d/init.d,%{_mandir}/man8}
-install -d $RPM_BUILD_ROOT{/var/spool/%{name}/notify,/var/run/%{name}}
+install -d $RPM_BUILD_ROOT{/var/spool/%{name}/{notify,children},/var/run/%{name}}
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 install %{name}.conf $RPM_BUILD_ROOT%{_sysconfdir}
@@ -68,6 +69,14 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del %{name}
 fi
 
+%triggerin -- clamav
+chown -R clamav /var/spool/%{name}
+chown -R clamav /var/run/%{name}
+
+%triggerun -- clamav
+chown -R root /var/spool/%{name}
+chown -R root /var/run/%{name}
+
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS CHANGELOG CONTRIBUTERS README TODO.list
@@ -78,5 +87,6 @@ fi
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/%{name}-*.mail
 %attr(770,root,mail) %dir /var/spool/%{name}
 %attr(770,root,mail) %dir /var/spool/%{name}/notify
+%attr(770,root,mail) %dir /var/spool/%{name}/children
 %attr(770,root,mail) %dir /var/run/%{name}
 %{_mandir}/man8/*
