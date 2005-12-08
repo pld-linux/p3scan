@@ -24,7 +24,7 @@ case "$1" in
 		[ -f /var/run/p3scan/p3scan.pid ] && rm -f /var/run/p3scan/p3scan.pid
 		daemon "/usr/sbin/p3scan"
 		RETVAL=$?
-		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/p3scan		
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/p3scan
 	else
 		msg_already_running p3scan
 	fi
@@ -36,7 +36,7 @@ case "$1" in
 		rm -f /var/run/p3scan/p3scan.pid /var/lock/subsys/p3scan >/dev/null 2>&1
 	else
 		msg_not_running p3scan
-	fi	
+	fi
 	;;
   restart|force-reload)
 	$0 stop
