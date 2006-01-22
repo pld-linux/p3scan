@@ -1,12 +1,12 @@
 Summary:	An application level gateway for the POP3 protocol
 Summary(pl):	Brama warstwy aplikacji dla protoko³u POP3
 Name:		p3scan
-Version:	2.1
-Release:	2
+Version:	2.3.2
+Release:	1
 License:	GPL
 Group:		Applications/Networking
 Source0:	http://dl.sourceforge.net/p3scan/%{name}-%{version}.tar.gz 
-# Source0-md5:	5e261548e522f3ac2583870b6e02aecd
+# Source0-md5:	9f8decc7d4701228788e3c8717096ca0
 Source1:	%{name}.init
 Patch0:		%{name}-config.patch
 URL:		http://p3scan.sf.net/
