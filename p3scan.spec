@@ -5,16 +5,16 @@ Version:	2.3.2
 Release:	1
 License:	GPL
 Group:		Applications/Networking
-Source0:	http://dl.sourceforge.net/p3scan/%{name}-%{version}.tar.gz 
+Source0:	http://dl.sourceforge.net/p3scan/%{name}-%{version}.tar.gz
 # Source0-md5:	9f8decc7d4701228788e3c8717096ca0
 Source1:	%{name}.init
 Patch0:		%{name}-config.patch
-URL:		http://p3scan.sf.net/
+URL:		http://p3scan.sourceforge.net/
 BuildRequires:	pcre-devel
-PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	pcre
-# FIXMI: which package in PLD provides 'netfilter' ? 
+Requires:	rc-scripts
+# FIXME: which package in PLD provides 'netfilter' ?
 #Requires:	netfilter
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -35,7 +35,7 @@ POP3.
 %build
 rm -fr ripmime/ripmime.a
 %{__make} \
-	CC=%{__cc} \
+	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}"
 
 %install
