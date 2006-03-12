@@ -11,6 +11,7 @@ Source1:	%{name}.init
 Patch0:		%{name}-config.patch
 URL:		http://p3scan.sourceforge.net/
 BuildRequires:	pcre-devel
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	pcre
 Requires:	rc-scripts
@@ -55,17 +56,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add %{name}
-if [ -f /var/lock/subsys/%{name} ]; then
-	/etc/rc.d/init.d/%{name} restart 1>&2
-else
-	echo "Type \"/etc/rc.d/init.d/%{name} start\" to start inet server" 1>&2
-fi
+%service %{name} restart
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/%{name} ]; then
-		/etc/rc.d/init.d/%{name} stop 1>&2
-	fi
+	%service %{name} stop
 	/sbin/chkconfig --del %{name}
 fi
 
