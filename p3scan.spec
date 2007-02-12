@@ -1,5 +1,5 @@
 Summary:	An application level gateway for the POP3 protocol
-Summary(pl):	Brama warstwy aplikacji dla protoko≥u POP3
+Summary(pl.UTF-8):   Brama warstwy aplikacji dla protoko≈Çu POP3
 Name:		p3scan
 Version:	2.3.2
 Release:	1
@@ -25,8 +25,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 p3scan provides transparent antivirus scanner gateway for the POP3
 protocol.
 
-%description -l pl
-p3scan dostarcza przezroczystej bramki antywirusowej dla protoko≥u
+%description -l pl.UTF-8
+p3scan dostarcza przezroczystej bramki antywirusowej dla protoko≈Çu
 POP3.
 
 %prep
